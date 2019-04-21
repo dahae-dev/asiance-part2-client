@@ -1,5 +1,4 @@
 # ASIANCE coding challenge - Part 1
----
 
 ### Tech Stack
 
