@@ -4,6 +4,11 @@ import styled from "styled-components";
 const Container = styled.div`
   float: right;
   display: flex;
+
+  @media screen and (max-width: 992px) {
+    float: none;
+    margin-bottom: 16px;
+  }
 `;
 
 const Avatar = styled.img`

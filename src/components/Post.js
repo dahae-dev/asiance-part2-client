@@ -9,10 +9,18 @@ const Container = styled.div`
   margin: 16px auto;
   background-color: #fff;
   padding: 48px 32px;
+
+  @media screen and (max-width: 600px) {
+    width: 96%;
+  }
 `;
 
 const PostHeader = styled.div`
   width: 60%;
+
+  @media screen and (max-width: 992px) {
+    width: 100%;
+  }
 `;
 
 const PostTitle = styled.div`
@@ -34,6 +42,10 @@ const Tags = styled.div`
 
 const BodyContainer = styled.div`
   display: flex;
+
+  @media screen and (max-width: 992px) {
+    flex-direction: column;
+  }
 `;
 
 const PostImage = styled.div`
@@ -46,6 +58,10 @@ const PostBody = styled.div`
   flex: 3;
   padding: 0 24px;
   font-size: 20px;
+
+  @media screen and (max-width: 992px) {
+    padding: 24px 0;
+  }
 `;
 
 const Post = ({ title, created_at, updated_at, tags, image_url, body, author }) => {
