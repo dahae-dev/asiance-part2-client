@@ -1,3 +1,10 @@
+### Tech Stack
+
+- React
+- Styled-Components for styling
+- Axios for fetching data
+- AWS S3 bucket for image file hosting
+
 ### How to start
 
 - Git clone
