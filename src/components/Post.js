@@ -48,24 +48,29 @@ const PostBody = styled.div`
   font-size: 20px;
 `;
 
-const Post = () => {
+const Post = ({ title, created_at, updated_at, tags, image_url, body, author }) => {
+  const created_date = created_at.split("T")[0];
+  const created_time = created_at.split("T")[1].slice(0, 8);
+  const updated_date = updated_at.split("T")[0];
+  const updated_time = updated_at.split("T")[1].slice(0, 8);
+
   return (
     <Container>
-      <Author />
+      <Author author={author} />
       <PostHeader>
-        <PostTitle>title</PostTitle>
-        <PostDate>Created</PostDate>
-        <PostDate>Updated</PostDate>
+        <PostTitle>{title}</PostTitle>
+        <PostDate>Created {`${created_date} ${created_time}`}</PostDate>
+        <PostDate>Updated {`${updated_date} ${updated_time}`}</PostDate>
         <Tags>
           <IoMdPricetags />
-          tags
+          {tags}
         </Tags>
       </PostHeader>
       <BodyContainer>
         <PostImage>
-          <img src="https://s3.ap-northeast-2.amazonaws.com/asiance-coding-challenge/image1.jpg" width="100%" />
+          <img src={image_url} width="100%" />
         </PostImage>
-        <PostBody>body</PostBody>
+        <PostBody>{body}</PostBody>
       </BodyContainer>
     </Container>
   );

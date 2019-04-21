@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { createGlobalStyle } from "styled-components";
 
 import Layout from "./Layout";
@@ -22,13 +23,36 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 const App = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get("http://localhost:5000/posts");
+      setPosts(result.data);
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
       <GlobalStyles />
       <Layout>
-        <Post />
+        {posts.map((post, index) => {
+          const { title, created_at, updated_at, tags, image_url, body, Author } = post;
+          return (
+            <Post
+              key={index}
+              title={title}
+              created_at={created_at}
+              updated_at={updated_at}
+              tags={tags}
+              image_url={image_url}
+              body={body}
+              author={Author}
+            />
+          );
+        })}
       </Layout>
-      ;
     </>
   );
 };

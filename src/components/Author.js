@@ -26,14 +26,16 @@ const Role = styled.div``;
 
 const Location = styled.div``;
 
-const Author = () => {
+const Author = ({ author }) => {
+  const { name, role, avatar, location } = author;
+
   return (
     <Container>
-      <Avatar src="https://s3.ap-northeast-2.amazonaws.com/asiance-coding-challenge/girl.png" />
+      <Avatar src={avatar} />
       <Profile>
-        <Name>name</Name>
-        <Role>role</Role>
-        <Location>location</Location>
+        <Name>{name}</Name>
+        <Role>{role}</Role>
+        <Location>{location}</Location>
       </Profile>
     </Container>
   );
