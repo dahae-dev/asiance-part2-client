@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import { createGlobalStyle } from "styled-components";
 
 import Layout from "./Layout";
+import Post from "./Post";
 
 const GlobalStyles = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css?family=Raleway:300,400,700,800|Staatliches');
@@ -24,7 +25,10 @@ const App = () => {
   return (
     <>
       <GlobalStyles />
-      <Layout>Hello, Asiance!</Layout>;
+      <Layout>
+        <Post />
+      </Layout>
+      ;
     </>
   );
 };
