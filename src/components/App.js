@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
+import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
 
 import Layout from "./Layout";
 import Post from "./Post";
@@ -20,18 +21,55 @@ const GlobalStyles = createGlobalStyle`
       height: 100%;
       overflow-y: scroll;
     }
+
+    .style {
+      color: #787878;
+      font-size: 20px; 
+      margin: 4px 0; 
+      cursor: pointer;
+    }
+
+    .active {
+      text-decoration: underline;
+    }
+`;
+
+const Pagination = styled.div`
+  display: flex;
+  flex-direction: row;
+  color: #787878;
+  font-size: 20px;
+  padding: 4px 0;
+`;
+
+const PageNum = styled.div`
+  padding: 0 16px;
+  cursor: pointer;
 `;
 
 const App = () => {
   const [posts, setPosts] = useState([]);
+  const [pageCount, setPageCount] = useState(1);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get("http://localhost:5000/posts");
-      setPosts(result.data);
+      const countResult = await axios.get("http://localhost:5000/count");
+      const total = countResult.data.count;
+      const page = Math.ceil(total / 5);
+      setPageCount(page);
+
+      const postResult = await axios.get("http://localhost:5000/posts/1");
+      setPosts(postResult.data.posts);
     };
     fetchData();
   }, []);
+
+  const handlePagination = async (e, ...args) => {
+    const page = !!args.length ? args[0] : e.target.textContent;
+    const result = await axios.get(`http://localhost:5000/posts/${page}`);
+    setPosts(result.data.posts);
+  };
 
   return (
     <>
@@ -52,6 +90,38 @@ const App = () => {
             />
           );
         })}
+        <Pagination>
+          <FaAngleDoubleLeft
+            className="style"
+            onClick={e => {
+              handlePagination(e, 1);
+              setPage(1);
+            }}
+          />
+          <Pagination>
+            {Array(pageCount)
+              .fill(1)
+              .map((v, i) => (
+                <PageNum
+                  key={i}
+                  className={page === i + 1 ? "active" : ""}
+                  onClick={e => {
+                    handlePagination(e);
+                    setPage(i + 1);
+                  }}
+                >
+                  {i + 1}
+                </PageNum>
+              ))}
+          </Pagination>
+          <FaAngleDoubleRight
+            className="style"
+            onClick={e => {
+              handlePagination(e, pageCount);
+              setPage(pageCount);
+            }}
+          />
+        </Pagination>
       </Layout>
     </>
   );
