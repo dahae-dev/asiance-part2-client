@@ -84,7 +84,7 @@ const Post = ({ title, created_at, updated_at, tags, image_url, body, author }) 
       </PostHeader>
       <BodyContainer>
         <PostImage>
-          <img src={image_url} width="100%" />
+          <img src={image_url} alt={title} width="100%" />
         </PostImage>
         <PostBody>{body}</PostBody>
       </BodyContainer>

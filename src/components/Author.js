@@ -36,7 +36,7 @@ const Author = ({ author }) => {
 
   return (
     <Container>
-      <Avatar src={avatar} />
+      <Avatar src={avatar} alt={name} />
       <Profile>
         <Name>{name}</Name>
         <Role>{role}</Role>
